@@ -1,0 +1,64 @@
+{
+  "name": "panel-auto-hide",
+  "displayName": "Panel Auto Hide",
+  "description": "Automatically hides the panel (terminal, output, problems) when you switch to an editor tab",
+  "version": "0.1.0",
+  "publisher": "yoshintame",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoshintame/vscode-panel-auto-hide"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "panel",
+    "terminal",
+    "auto-hide",
+    "maximize",
+    "layout"
+  ],
+  "icon": "icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Panel Auto Hide",
+      "properties": {
+        "panelAutoHide.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable automatic panel hiding when switching editor tabs"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "vsce:package": "vsce package --no-dependencies",
+    "vsce:publish": "vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/vsce": "^3.7.1",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.16.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.7.2"
+  }
+}
