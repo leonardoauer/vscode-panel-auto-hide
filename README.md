@@ -2,13 +2,25 @@
 
 Automatically hides the panel (terminal, output, problems) when you switch to an editor tab.
 
-## Why
+## The problem
 
-VS Code's panel can get in the way — especially on smaller screens. With `"workbench.panel.opensMaximized": "always"`, the panel takes up the entire editor area. This extension closes it automatically when you switch to a file, so you don't have to manually dismiss it every time.
+If you prefer working with the panel in only two states — **fully maximized** or **completely hidden** — VS Code gets you halfway there with:
 
-## How it works
+```json
+"workbench.panel.opensMaximized": "always"
+```
 
-When the active text editor changes (you open a file, click a tab, follow a link from terminal), the panel closes automatically.
+This ensures the panel always opens maximized. But there are cases where the panel still ends up minimized (half-height) instead of fully hidden:
+
+- Opening a file from the Explorer while the panel is visible
+- Clicking a file link in the terminal output
+- Various other editor focus changes
+
+In all these cases VS Code minimizes the panel to half-height instead of hiding it completely. You end up with a useless half-panel covering your code, and have to manually close it.
+
+## The solution
+
+This extension listens for editor focus changes and automatically **closes the panel completely** whenever you switch to a different editor tab. No more half-height panel state — it's either fullscreen or gone.
 
 ## Settings
 
@@ -17,8 +29,6 @@ When the active text editor changes (you open a file, click a tab, follow a link
 | `panelAutoHide.enabled` | `true` | Enable or disable automatic panel hiding |
 
 ## Recommended setup
-
-Add this to your `settings.json` for a fullscreen-or-nothing panel experience:
 
 ```json
 "workbench.panel.opensMaximized": "always"
